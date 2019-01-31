@@ -43,11 +43,29 @@ class FriendlychatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: "UNSRI Chat!",
       theme: defaultTargetPlatform == TargetPlatform.iOS
           ? kIOSTheme
           : kDefaultTheme,
-      home: new ChatScreen(),
+      home: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.forum)),
+                Tab(icon: Icon(Icons.history)),
+              ],
+            ),
+            title: Text('Unsri Chat!'),
+          ),
+          body: TabBarView(
+            children: [
+              new ChatScreen(),
+              Icon(Icons.directions_transit),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -111,10 +129,6 @@ class ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("UNSRI Chat!"),
-        elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
-      ),
       body: new Column(
         children: <Widget>[
           new Flexible(
